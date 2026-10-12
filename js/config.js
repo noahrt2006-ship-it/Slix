@@ -17,38 +17,31 @@ window.SLIX_CONFIG = {
   formEndpoint: "",
 
   /* Services shown on the homepage cards.
-     Delete a block to remove a service, or edit the text.
-     "art" picks the illustration: install, repair, startup, winter, upgrade, maintain */
+     Delete a block to remove a service, or edit the text. */
   services: [
     {
       title: "Sprinkler Installation",
-      text: "Thoughtfully designed irrigation systems for beautiful, consistently watered lawns.",
-      art: "install"
+      text: "Thoughtfully designed irrigation systems for beautiful, consistently watered lawns."
     },
     {
       title: "System Repair",
-      text: "Troubleshooting and repairs to help irrigation systems perform as intended.",
-      art: "repair"
+      text: "Troubleshooting and repairs to help irrigation systems perform as intended."
     },
     {
       title: "Seasonal Startups",
-      text: "Getting systems ready for the watering season.",
-      art: "startup"
+      text: "Getting systems ready for the watering season."
     },
     {
       title: "Winterization",
-      text: "Preparing eligible systems for Michigan's freezing winter conditions.",
-      art: "winter"
+      text: "Preparing eligible systems for Michigan's freezing winter conditions."
     },
     {
       title: "Irrigation Upgrades",
-      text: "Modernizing existing systems for better performance and convenience.",
-      art: "upgrade"
+      text: "Modernizing existing systems for better performance and convenience."
     },
     {
       title: "System Maintenance",
-      text: "Helping keep irrigation equipment operating reliably.",
-      art: "maintain"
+      text: "Helping keep irrigation equipment operating reliably."
     }
   ],
 

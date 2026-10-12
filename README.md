@@ -9,9 +9,8 @@ Static site (HTML, CSS, JavaScript, no build step). Hosted on Vercel; every push
 | `index.html` | All page content and section text |
 | `js/config.js` | **Business settings: phone, email, form, services list, dropdown options** |
 | `css/styles.css` | Colors, type, layout |
-| `js/intro.js` | The opening sprinkler / splash / SLIX reveal |
 | `js/demo.js` | The interactive "Shape the spray" sprinkler |
-| `js/main.js` | Navigation, scroll effects, contact form, hero and background animations |
+| `js/main.js` | Hero plan drawing, navigation, services list, contact form |
 
 ## What Jimmy still needs to provide
 
@@ -31,18 +30,13 @@ All of these go in `js/config.js`. Blank values are hidden on the site automatic
 
 Spam protection: a hidden honeypot field (`_gotcha`, which Formspree recognizes) plus a minimum time-on-page check. Formspree's own spam filtering can be turned on in its dashboard. Submissions go straight to Formspree over HTTPS; nothing is stored in the visitor's browser.
 
-## Intro behaviour
+## Opening
 
-- Plays once per browser session (stored in `sessionStorage`), then the site loads directly.
-- "Skip intro" or the Escape key jumps straight in.
-- Visitors with "reduce motion" turned on never see it.
-- Sound is off by default; the toggle generates a soft water hiss in the browser (no audio files).
-
-To replay it while testing, open the site in a new private window.
+No intro screen. The page opens on the hero, and the headline rises into place once (skipped for visitors with reduced motion turned on). The drawing beside it is an illustrative irrigation plan generated in `js/main.js`, not a real customer's property.
 
 ## Adding real photos later
 
-Service cards and the hero currently use drawn illustrations and animated scenes, so nothing on the site is stock or fake. To use real job photos, replace a card's illustration in `js/main.js` (`ART`) or add an `<img>` inside `.svc-art`.
+The site uses drawings rather than photos, so nothing on it is stock or fake. Real job photos would work well as a full-width band between sections.
 
 ## Not included on purpose
 
