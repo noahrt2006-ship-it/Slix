@@ -1,8 +1,370 @@
 <!doctype html>
-<html>
-<head><meta charset="utf-8"><title>Coming Soon</title></head>
-<body style="font-family:sans-serif;text-align:center;padding:80px">
-<h1>Coming Soon</h1>
-<p>Our new website is on the way.</p>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>SLIX — Sprinkler &amp; Irrigation | Tawas City, Michigan</title>
+  <meta name="description" content="SLIX designs, installs, and maintains sprinkler and irrigation systems from Tawas City, Michigan. Precision in every drop.">
+  <meta name="theme-color" content="#07090c">
+  <meta property="og:title" content="SLIX — Precision in every drop.">
+  <meta property="og:description" content="Sprinkler and irrigation from Tawas City, Michigan.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;800;900&family=Geist+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>
+    /* Decide before first paint whether the intro plays (once per browsing session). */
+    (function () {
+      document.documentElement.classList.add("js");
+      var seen = false;
+      try { seen = sessionStorage.getItem("slix-intro-seen") === "1"; } catch (e) {}
+      var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (seen || reduce) document.documentElement.classList.add("no-intro");
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- ============ THE SLIX ENTRANCE ============ -->
+  <div id="intro" class="intro" role="dialog" aria-modal="true" aria-label="SLIX introduction">
+    <canvas id="intro-canvas" aria-hidden="true"></canvas>
+    <div class="intro-copy">
+      <p class="intro-tag">Precision in every drop.</p>
+      <p class="intro-loc">Tawas City, Michigan</p>
+      <button class="intro-enter" id="intro-enter" type="button">Enter SLIX <span aria-hidden="true">→</span></button>
+    </div>
+    <div class="intro-controls">
+      <button class="intro-sound" id="intro-sound" type="button" aria-pressed="false">Sound off</button>
+      <button class="intro-skip" id="intro-skip" type="button">Skip intro</button>
+    </div>
+  </div>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ NAVIGATION ============ -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="wordmark" href="#top" aria-label="SLIX home">SLIX</a>
+      <nav class="nav-links" aria-label="Main">
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#process">Our Process</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="btn btn-quote" href="#contact">Get a Quote</a>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="sr-only">Menu</span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <nav aria-label="Mobile">
+      <a href="#services"><span class="mm-idx">01</span>Services</a>
+      <a href="#about"><span class="mm-idx">02</span>About</a>
+      <a href="#process"><span class="mm-idx">03</span>Our Process</a>
+      <a href="#contact"><span class="mm-idx">04</span>Contact</a>
+    </nav>
+    <a class="btn btn-primary mm-cta" href="#contact">Get a Quote →</a>
+    <p class="mm-loc">Tawas City, Michigan</p>
+  </div>
+
+  <main id="main">
+
+    <!-- A — HERO -->
+    <section class="hero" id="top">
+      <canvas id="hero-canvas" class="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="wrap hero-content">
+        <p class="eyebrow reveal">SLIX Irrigation · Tawas City, MI</p>
+        <h1 class="hero-title reveal">Water,<br>perfectly delivered.</h1>
+        <p class="hero-sub reveal">Smarter irrigation. Healthier landscapes. A better way to water.</p>
+        <div class="hero-actions reveal">
+          <a class="btn btn-primary" href="#services">Explore our services</a>
+          <a class="btn btn-ghost" href="#contact">Get in touch</a>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#about" aria-label="Scroll to learn more"><span></span></a>
+    </section>
+
+    <!-- B — PHILOSOPHY -->
+    <section class="section philosophy" id="about">
+      <div class="wrap split">
+        <figure class="cutaway reveal" aria-label="Cutaway drawing of a pop-up sprinkler head below a lawn">
+          <svg viewBox="0 0 520 560" role="img" aria-labelledby="cut-t">
+            <title id="cut-t">Cutaway of a pop-up sprinkler zone</title>
+            <defs>
+              <linearGradient id="cutSky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#0d1a2e"/><stop offset="1" stop-color="#07090c"/>
+              </linearGradient>
+              <linearGradient id="cutSoil" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#15120e"/><stop offset="1" stop-color="#0a0908"/>
+              </linearGradient>
+              <linearGradient id="chrome" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#6d747d"/><stop offset=".45" stop-color="#eef1f4"/><stop offset="1" stop-color="#8b929b"/>
+              </linearGradient>
+              <pattern id="soilDots" width="14" height="14" patternUnits="userSpaceOnUse">
+                <circle cx="3" cy="4" r="1" fill="#2a241c"/><circle cx="10" cy="11" r=".8" fill="#221d17"/>
+              </pattern>
+            </defs>
+            <rect width="520" height="300" fill="url(#cutSky)"/>
+            <rect y="300" width="520" height="260" fill="url(#cutSoil)"/>
+            <rect y="300" width="520" height="260" fill="url(#soilDots)"/>
+            <!-- grass line -->
+            <path d="M0 300 Q130 292 260 298 T520 296 L520 312 L0 312Z" fill="#2f5a3a"/>
+            <g stroke="#4f8a5b" stroke-width="1.4" stroke-linecap="round" class="grass">
+              <path d="M20 302 l-3 -14 M28 302 l2 -12 M60 300 l-4 -16 M90 301 l3 -13 M120 299 l-2 -15 M150 300 l4 -12 M186 301 l-3 -14 M300 299 l2 -14 M330 300 l-4 -13 M362 299 l3 -15 M398 300 l-2 -12 M430 301 l4 -14 M466 299 l-3 -13 M500 300 l2 -15"/>
+            </g>
+            <!-- spray arcs -->
+            <g fill="none" stroke-linecap="round" class="spray-lines">
+              <path d="M260 236 C200 120 110 110 40 250" stroke="#9fc4ff" stroke-opacity=".55" stroke-width="1.4" stroke-dasharray="2 7"/>
+              <path d="M260 236 C320 120 410 110 480 250" stroke="#9fc4ff" stroke-opacity=".55" stroke-width="1.4" stroke-dasharray="2 7"/>
+              <path d="M260 236 C215 160 160 150 110 270" stroke="#cfe0ff" stroke-opacity=".35" stroke-width="1" stroke-dasharray="1 6"/>
+              <path d="M260 236 C305 160 360 150 410 270" stroke="#cfe0ff" stroke-opacity=".35" stroke-width="1" stroke-dasharray="1 6"/>
+            </g>
+            <!-- head, risen -->
+            <rect x="248" y="236" width="24" height="70" rx="3" fill="url(#chrome)"/>
+            <rect x="243" y="230" width="34" height="10" rx="3" fill="url(#chrome)"/>
+            <!-- body below grade -->
+            <rect x="236" y="306" width="48" height="96" rx="5" fill="#1b1f25" stroke="#3a414b"/>
+            <rect x="244" y="314" width="32" height="80" rx="3" fill="none" stroke="#565f6b" stroke-dasharray="3 4"/>
+            <!-- lateral pipe -->
+            <rect x="0" y="420" width="520" height="22" rx="11" fill="#141922" stroke="#2b3340"/>
+            <rect x="252" y="400" width="16" height="22" fill="#141922" stroke="#2b3340"/>
+            <path d="M14 431 H506" stroke="#3d7bd9" stroke-width="3" stroke-dasharray="10 12" class="flow"/>
+            <!-- callouts -->
+            <g font-family="Geist Mono, ui-monospace, monospace" font-size="11" fill="#9aa3ae" letter-spacing=".08em">
+              <line x1="285" y1="268" x2="350" y2="268" stroke="#4a525d"/><text x="356" y="272">POP-UP HEAD</text>
+              <line x1="236" y1="352" x2="150" y2="352" stroke="#4a525d"/><text x="40" y="356">BODY · BELOW GRADE</text>
+              <line x1="380" y1="442" x2="380" y2="480" stroke="#4a525d"/><text x="330" y="496">LATERAL LINE</text>
+              <text x="40" y="70" fill="#cfe0ff">HEAD-TO-HEAD COVERAGE</text>
+            </g>
+          </svg>
+        </figure>
+        <div class="split-copy">
+          <p class="eyebrow reveal">The SLIX philosophy</p>
+          <h2 class="h2 reveal">Every drop has a purpose.</h2>
+          <p class="lede reveal">A sprinkler system is only as good as its design and its upkeep. Heads placed with care, zones matched to the ground they water, and a system checked through the seasons. That's the difference between a lawn that's patchy and one that's even, edge to edge.</p>
+          <ul class="benefits reveal">
+            <li><span class="b-k">Coverage</span><span class="b-v">Consistent watering across the whole lawn, without dry corners.</span></li>
+            <li><span class="b-k">Efficiency</span><span class="b-v">Water goes to the grass and beds, not the driveway.</span></li>
+            <li><span class="b-k">Reliability</span><span class="b-v">A system that turns on when it should and does its job.</span></li>
+            <li><span class="b-k">The result</span><span class="b-v">Outdoor spaces that look cared for all season.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- C — SERVICES -->
+    <section class="section services" id="services">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow reveal">Services</p>
+          <h2 class="h2 reveal">From the first trench to the last blowout.</h2>
+        </div>
+        <div class="service-grid" id="service-grid"><!-- filled from js/config.js --></div>
+      </div>
+    </section>
+
+    <!-- D — INTERACTIVE SPRINKLER -->
+    <section class="section demo" id="demo">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow reveal">Try it</p>
+          <h2 class="h2 reveal">Shape the spray.</h2>
+          <p class="lede reveal">Drag the controls and watch the coverage change. A rotor head sweeps its arc and the lawn darkens where water lands.</p>
+        </div>
+        <div class="demo-stage reveal">
+          <div class="demo-canvas-wrap">
+            <canvas id="demo-canvas" aria-label="Top-down view of a lawn with a sprinkler watering it" role="img"></canvas>
+            <p class="demo-readout" id="demo-readout" aria-live="polite"></p>
+          </div>
+          <div class="demo-panel">
+            <div class="control">
+              <label for="d-radius">Spray radius <output id="o-radius">30 ft</output></label>
+              <input type="range" id="d-radius" min="10" max="45" value="30">
+            </div>
+            <div class="control">
+              <label for="d-arc">Arc <output id="o-arc">180°</output></label>
+              <input type="range" id="d-arc" min="40" max="360" step="5" value="180">
+            </div>
+            <div class="control">
+              <label for="d-dir">Direction <output id="o-dir">0°</output></label>
+              <input type="range" id="d-dir" min="0" max="355" step="5" value="0">
+            </div>
+            <div class="presets" role="group" aria-label="Spray presets">
+              <button type="button" class="chip" data-preset="narrow">Narrow strip</button>
+              <button type="button" class="chip" data-preset="corner">Corner</button>
+              <button type="button" class="chip" data-preset="wide">Full circle</button>
+            </div>
+            <div class="demo-actions">
+              <button type="button" class="btn btn-primary" id="d-toggle" aria-pressed="true">Turn off</button>
+              <button type="button" class="btn btn-ghost" id="d-dry">Dry the lawn</button>
+            </div>
+            <p class="fine">Visual demonstration only. Not an irrigation calculator or design tool.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- E — BUILT FOR MICHIGAN -->
+    <section class="section michigan" id="michigan">
+      <div class="wrap split split-rev">
+        <div class="split-copy">
+          <p class="eyebrow reveal">Built for Michigan</p>
+          <h2 class="h2 reveal">Rooted in Tawas City. Ready for Michigan.</h2>
+          <p class="lede reveal">SLIX is based in Tawas City, on the shore of Tawas Bay. Up here, a sprinkler system lives through two very different jobs: keeping lawns green through a short, warm summer, and surviving a winter that freezes the ground solid.</p>
+          <p class="body reveal">Water left in the lines when the frost comes can crack pipes, fittings, and heads. That's why seasonal care matters here: a proper startup in spring, and a thorough shutdown before the hard freeze.</p>
+        </div>
+        <div class="geo reveal" aria-label="Tawas City location and the Michigan irrigation season">
+          <div class="geo-map">
+            <canvas id="geo-canvas" aria-hidden="true"></canvas>
+            <div class="geo-label">
+              <span class="geo-name">Tawas City</span>
+              <span class="geo-coord">44.27° N · 83.51° W</span>
+              <span class="geo-water">Tawas Bay · Lake Huron</span>
+            </div>
+          </div>
+          <ol class="season" aria-label="A typical Northern Michigan irrigation year">
+            <li class="s-frozen"><span class="s-m">Jan–Mar</span><span class="s-t">Ground frozen</span></li>
+            <li class="s-start"><span class="s-m">Spring</span><span class="s-t">Startup</span></li>
+            <li class="s-run"><span class="s-m">Summer</span><span class="s-t">Watering season</span></li>
+            <li class="s-wint"><span class="s-m">Fall</span><span class="s-t">Winterize</span></li>
+            <li class="s-frozen"><span class="s-m">Dec</span><span class="s-t">Ground frozen</span></li>
+          </ol>
+          <p class="fine">Typical season shape. Exact timing depends on the year's weather.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- F — PROCESS -->
+    <section class="section process" id="process">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow reveal">Our process</p>
+          <h2 class="h2 reveal">Three steps to a better-watered lawn.</h2>
+        </div>
+        <ol class="timeline">
+          <li class="step reveal">
+            <span class="step-n">01</span>
+            <h3 class="step-t">Connect</h3>
+            <p>Tell us about your property and what you need.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step-n">02</span>
+            <h3 class="step-t">Plan</h3>
+            <p>Talk through the right irrigation solution for your space.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step-n">03</span>
+            <h3 class="step-t">Get started</h3>
+            <p>Set up the next steps with the SLIX team.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- G — CONTACT -->
+    <section class="section contact" id="contact">
+      <div class="wrap split contact-split">
+        <div class="split-copy">
+          <p class="eyebrow reveal">Contact</p>
+          <h2 class="h2 reveal">Let's make every drop count.</h2>
+          <p class="lede reveal">Tell us a little about your project. We'll take it from there.</p>
+          <dl class="contact-direct reveal" id="contact-direct">
+            <div><dt>Based in</dt><dd>Tawas City, Michigan</dd></div>
+            <!-- phone/email rows are added from js/config.js when filled in -->
+          </dl>
+        </div>
+        <form class="form reveal" id="contact-form" novalidate>
+          <div class="field">
+            <label for="f-name">Full name</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required>
+            <p class="err" id="e-name"></p>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="f-email">Email address</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" required>
+              <p class="err" id="e-email"></p>
+            </div>
+            <div class="field">
+              <label for="f-phone">Phone number <span class="opt">optional</span></label>
+              <input id="f-phone" name="phone" type="tel" autocomplete="tel">
+              <p class="err" id="e-phone"></p>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-where">Property address or town</label>
+            <input id="f-where" name="location" type="text" autocomplete="street-address" required>
+            <p class="err" id="e-where"></p>
+          </div>
+          <div class="field">
+            <label for="f-need">What do you need help with?</label>
+            <select id="f-need" name="service" required>
+              <option value="">Choose one</option>
+            </select>
+            <p class="err" id="e-need"></p>
+          </div>
+          <div class="field">
+            <label for="f-details">Additional project details <span class="opt">optional</span></label>
+            <textarea id="f-details" name="details" rows="4" maxlength="2000"></textarea>
+          </div>
+          <!-- spam trap: real people never see or fill this -->
+          <div class="hp" aria-hidden="true">
+            <label for="f-company">Company</label>
+            <input id="f-company" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <button class="btn btn-primary btn-submit" type="submit" id="f-submit">
+            <span class="label">Let's talk →</span><span class="spinner" aria-hidden="true"></span>
+          </button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- H — FINAL CTA -->
+    <section class="final" id="start">
+      <canvas id="final-canvas" class="final-canvas" aria-hidden="true"></canvas>
+      <div class="wrap final-content">
+        <h2 class="final-title reveal">Your lawn.<br>Your vision.<br><span class="chrome-text">SLIX.</span></h2>
+        <a class="btn btn-primary reveal" href="#contact">Start your project</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- I — FOOTER -->
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <div class="f-brand">
+        <a class="wordmark wordmark-lg" href="#top">SLIX</a>
+        <p>Precision in every drop.</p>
+        <p class="f-loc">Tawas City, Michigan</p>
+      </div>
+      <nav class="f-col" aria-label="Footer">
+        <h3>Navigate</h3>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#process">Our Process</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="f-col" id="footer-services"><h3>Services</h3></div>
+      <div class="f-col" id="footer-contact">
+        <h3>Contact</h3>
+        <a href="#contact">Send a message</a>
+      </div>
+    </div>
+    <div class="wrap f-base">
+      <p>© <span id="year"></span> SLIX. All rights reserved.</p>
+      <p>Tawas City, MI</p>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/intro.js"></script>
+  <script src="js/demo.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
