@@ -129,5 +129,33 @@
     return o.join("");
   }
 
-  window.SLIX_FIGURES = { install: install, repair: repair, maintain: maintain, blowout: blowout };
+  /* the year dial: ring and month labels (main.js adds the "now" marker) */
+  function dial() {
+    var C = 220, R1 = 196, R0 = 132;
+    var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var PHASE = ["frozen", "frozen", "frozen", "start", "start", "water", "water", "water", "winter", "winter", "frozen", "frozen"];
+    var FILL = { frozen: "url(#dfrost)", start: "#5f8f6a", water: "#2a7de1", winter: "#ff5a1f" };
+    function pol(r, deg) { var a = (deg - 90) * Math.PI / 180; return [(C + r * Math.cos(a)).toFixed(2), (C + r * Math.sin(a)).toFixed(2)]; }
+    function band(d0, d1) {
+      var a = pol(R1, d0), b = pol(R1, d1), c = pol(R0, d1), d = pol(R0, d0), big = d1 - d0 > 180 ? 1 : 0;
+      return "M" + a + " A" + R1 + " " + R1 + " 0 " + big + " 1 " + b + " L" + c + " A" + R0 + " " + R0 + " 0 " + big + " 0 " + d + "Z";
+    }
+    var out = ['<defs><pattern id="dfrost" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#24303a"/><path d="M0 0 V6" stroke="#3a4752" stroke-width="3"/></pattern></defs>'];
+    var runs = [];
+    for (var k = 0; k < 12; k++) {
+      var i = (10 + k) % 12;
+      if (runs.length && runs[runs.length - 1].p === PHASE[i]) runs[runs.length - 1].n++;
+      else runs.push({ p: PHASE[i], s: i, n: 1 });
+    }
+    runs.forEach(function (r) { var d0 = r.s * 30 + 1, d1 = (r.s + r.n) * 30 - 1; if (d1 < d0) d1 += 360; out.push('<path d="' + band(d0, d1) + '" fill="' + FILL[r.p] + '"/>'); });
+    for (var m = 0; m < 12; m++) {
+      var lp = pol(R1 + 22, m * 30 + 15);
+      out.push('<text x="' + lp[0] + '" y="' + lp[1] + '" text-anchor="middle" dominant-baseline="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="#93a29b">' + MONTHS[m] + "</text>");
+    }
+    out.push('<text class="dial-c1" x="' + C + '" y="' + (C - 16) + '" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" letter-spacing="1.5" fill="#93a29b">THE YEAR</text>');
+    out.push('<text class="dial-c2" x="' + C + '" y="' + (C + 18) + '" text-anchor="middle" font-family="Archivo, Helvetica Neue, Arial, sans-serif" font-weight="700" font-size="28" fill="#f1eee6">Tawas City</text>');
+    return out.join("");
+  }
+
+  window.SLIX_FIGURES = { install: install, repair: repair, maintain: maintain, blowout: blowout, dial: dial };
 })();

@@ -26,11 +26,11 @@
     { id: "spray", x: 585, y: 196 },
     { id: "rotor", x: 1110, y: 186 }
   ];
-  var uid = 0;
+  var uid = 0, WS = "empty";
 
   function pipe(d, part, cls) {
     return '<g data-part="' + part + '"><path class="po" pathLength="1" d="' + d + '"/>' +
-      (cls ? '<path class="w ' + cls + '" data-s="empty" pathLength="1" d="' + d + '"/>' +
+      (cls ? '<path class="w ' + cls + '" data-s="' + WS + '" pathLength="1" d="' + d + '"/>' +
              '<path class="fl ' + cls + '" d="' + d + '"/>' +
              '<path class="ar ' + cls + '" d="' + d + '"/>' : "") +
       "</g>";
@@ -65,15 +65,18 @@
     return d + " Z";
   }
 
-  function build(svg, opts) {
-    var id = "sx" + (++uid), o = [];
+  /* the drawing as a string, so it can be written straight into the HTML (see tools/prerender.js) */
+  function markup(opts) {
+    opts = opts || {};
+    var id = opts.id || "sx" + (++uid), o = [];
+    WS = opts.full ? "full" : "empty";
     o.push("<defs>" +
       '<pattern id="' + id + 'h" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0 V9" class="hatch"/></pattern>' +
       '<linearGradient id="' + id + 'f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="fr0"/><stop offset="1" class="fr1"/></linearGradient>' +
       "</defs>");
     /* ground and house */
-    o.push('<rect class="soil" x="110" y="' + G + '" width="1090" height="300"/>');
-    o.push('<rect x="110" y="' + G + '" width="1090" height="300" fill="url(#' + id + 'h)"/>');
+    o.push('<rect class="soil" x="110" y="' + G + '" width="1090" height="460"/>');
+    o.push('<rect x="110" y="' + G + '" width="1090" height="460" fill="url(#' + id + 'h)"/>');
     o.push('<rect class="frost" x="110" y="' + G + '" width="1090" height="96" fill="url(#' + id + 'f)"/>');
     o.push('<g data-part="house"><rect class="house" x="0" y="70" width="110" height="290"/><path class="house-l" d="M0 ' + G + ' H110"/>' +
       '<text x="10" y="124">HOUSE</text><text x="10" y="352">BASEMENT</text></g>');
@@ -88,7 +91,7 @@
     o.push(pipe("M30 300 H150 V184", "mainline"));
     o.push(pipe("M150 184 H240", "backflow"));
     o.push(pipe("M240 184 V330 H392", "mainline"));
-    o.push('<g data-part="mainline"><path class="w main" data-s="empty" pathLength="1" d="M30 300 H150 V184 H240 V330 H392"/><path class="fl main" d="M30 300 H150 V184 H240 V330 H392"/><path class="ar main" d="M258 225 H240 V330 H392"/></g>');
+    o.push('<g data-part="mainline"><path class="w main" data-s="' + WS + '" pathLength="1" d="M30 300 H150 V184 H240 V330 H392"/><path class="fl main" d="M30 300 H150 V184 H240 V330 H392"/><path class="ar main" d="M258 225 H240 V330 H392"/></g>');
     /* zones: valve drop + lateral, then risers */
     [1, 2, 3].forEach(function (n) {
       var z = ZONES[n];
@@ -110,7 +113,7 @@
       '<circle class="wheel" cx="12" cy="40" r="5"/><circle class="wheel" cx="46" cy="40" r="5"/><text class="ctext" x="29" y="26" text-anchor="middle">AIR</text></g></g>');
     /* controller on the house wall */
     o.push('<g data-part="controller"><rect class="ctrl" x="24" y="128" width="48" height="52" rx="3"/><rect class="lcd" x="30" y="134" width="36" height="16" rx="1"/>' +
-      '<text class="lcd-t" x="48" y="145.5" text-anchor="middle">OFF</text><circle class="knob" cx="48" cy="166" r="7"/></g>');
+      '<text class="lcd-t" x="48" y="145.5" text-anchor="middle">' + (opts.lcd || "OFF") + '</text><circle class="knob" cx="48" cy="166" r="7"/></g>');
     /* annotations */
     o.push('<g class="ann"><text x="200" y="318" text-anchor="end">MAIN LINE</text>' +
       '<text x="420" y="398">' + ZONES[1].label + '</text><text x="420" y="438">' + ZONES[2].label + '</text><text x="420" y="478">' + ZONES[3].label + "</text>" +
@@ -124,16 +127,32 @@
           '<circle class="hit" r="18"/><circle class="dot" r="10.5"/><text text-anchor="middle" y="3.8">' + (i + 1) + "</text></g>");
       });
     }
-    svg.setAttribute("viewBox", opts.view || "0 110 1200 390");
-    svg.innerHTML = o.join("");
+    return o.join("");
   }
+
+  /* Views. Desktop shows the whole system. Phones use the same 3:2 frame
+     everywhere and pan to whatever matters, so the drawing always fits the screen. */
+  var VIEWS = {
+    full: "0 112 1200 386",
+    explore: "0 96 1200 404",
+    m: {
+      start: "0 100 600 400",
+      controller: "0 96 390 260", shutoff: "0 200 330 220", backflow: "100 120 330 220",
+      blowout: "150 150 330 220", mainline: "0 140 480 320", valves: "230 230 330 220",
+      laterals: "300 140 900 600", spray: "380 140 420 280", rotor: "800 130 400 267",
+      z1: "300 130 480 320", z2: "600 150 480 320", z3: "740 160 465 310",
+      winter: "0 100 600 400"
+    }
+  };
 
   function System(svg, opts) {
     opts = opts || {};
     this.svg = svg;
-    build(svg, opts);
+    if (!svg.firstElementChild) svg.innerHTML = markup(opts);
+    if (opts.view) svg.setAttribute("viewBox", opts.view);
     this.lcd = svg.querySelector(".lcd-t");
     this.timers = [];
+    this.anim = 0;
   }
   var P = System.prototype;
   P.$ = function (s) { return Array.prototype.slice.call(this.svg.querySelectorAll(s)); };
@@ -174,6 +193,23 @@
     this.display(n ? "ZONE " + n : (this.svg.classList.contains("press") ? "READY" : "OFF"));
     return this;
   };
+  /* move the camera: animate the viewBox to "x y w h" */
+  P.view = function (box, instant) {
+    var svg = this.svg, self = this;
+    var to = box.split(/[\s,]+/).map(Number), from = (svg.getAttribute("viewBox") || box).split(/[\s,]+/).map(Number);
+    cancelAnimationFrame(this.anim);
+    var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (instant || reduce || from.join() === to.join()) { svg.setAttribute("viewBox", to.join(" ")); return this; }
+    var t0 = 0, ms = 800;
+    function step(now) {
+      if (!t0) t0 = now;
+      var t = Math.min(1, (now - t0) / ms), e = t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      svg.setAttribute("viewBox", from.map(function (f, i) { return (f + (to[i] - f) * e).toFixed(1); }).join(" "));
+      if (t < 1) self.anim = requestAnimationFrame(step);
+    }
+    this.anim = requestAnimationFrame(step);
+    return this;
+  };
   P.focus = function (part) {
     if (part) this.svg.setAttribute("data-focus", part); else this.svg.removeAttribute("data-focus");
     this.$("[data-part]").forEach(function (el) { el.classList.toggle("dim", !!part && el.getAttribute("data-part") !== part); });
@@ -181,5 +217,5 @@
     return this;
   };
 
-  window.SLIX_SYSTEM = { System: System, ZONES: ZONES, PARTS: PARTS };
+  window.SLIX_SYSTEM = { System: System, ZONES: ZONES, PARTS: PARTS, VIEWS: VIEWS, markup: markup };
 })();

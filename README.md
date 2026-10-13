@@ -18,19 +18,25 @@ Colours: graphite and off-white, blue for water, safety orange for air and for t
 
 | File | What it is |
 |---|---|
-| `index.html` | Page content and section text |
-| `js/config.js` | **Business settings: phone, email, form, seasonal note, services, dropdown options** |
+| `index.html` | **All page text: services, finder options, form options.** The drawings are written into it too. |
+| `js/config.js` | **Business settings: phone, email, form endpoint, seasonal note** |
 | `css/styles.css` | All styling |
-| `js/system.js` | The cross-section drawing and its controls |
-| `js/figures.js` | The four service diagrams |
-| `js/main.js` | Hero sequence, explorer, services, blowout switch, year dial, finder, form |
+| `js/system.js` | The cross-section drawing, its controls, and the phone "camera" views |
+| `js/figures.js` | The four service diagrams and the year dial (used by the pre-render step) |
+| `tools/prerender.js` | Writes the drawings into `index.html` |
+| `js/main.js` | Interaction only: hero sequence, explorer, services, blowout switch, finder, form |
+
+All content is in the HTML, so the page still reads properly if scripts are slow or blocked. If you change `js/system.js` or `js/figures.js`, run `node tools/prerender.js` to update the drawings in `index.html`.
+
+On phones the drawings fit the screen and zoom to whatever matters: the part you tapped, the zone that's running, or each step of the blowout.
 
 ## What Jimmy still needs to provide (all in `js/config.js`)
 
 1. **Phone number** and **business email.** Blank values are hidden. A phone number also shows in the top bar and hero.
 2. **Form delivery** (`formEndpoint`). Until set, the form validates but tells visitors it isn't connected. It never fakes a "sent" message.
-3. **Confirm the four services and their bullet points** match what SLIX actually does. The earlier "Seasonal startups" and "Irrigation upgrades" were removed because they weren't confirmed; add them back if they're real.
-4. **Seasonal note** (`seasonNote`), e.g. "Now booking fall blowouts." Only fill it in when it's true.
+3. **Seasonal note** (`seasonNote`), e.g. "Now booking fall blowouts." Only fill it in when it's true.
+
+And in `index.html`: **confirm the four services and their bullet points** match what SLIX actually does. "Seasonal startups" and "Irrigation upgrades" were removed because they weren't confirmed.
 
 ## Connecting the contact form (free, about 5 minutes)
 
@@ -49,4 +55,4 @@ Spam protection: hidden honeypot field (`_gotcha`) plus a minimum time-on-page c
 
 ## Motion and accessibility
 
-Visitors with reduced motion turned on see every drawing in a finished state with no animation. Every interactive part works by keyboard. The drawings scroll sideways inside their own frame on phones.
+Visitors with reduced motion turned on see every drawing in a finished state with no animation. Every interactive part works by keyboard and touch.
