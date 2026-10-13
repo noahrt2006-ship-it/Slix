@@ -14,17 +14,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="css/styles.css">
+  <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- NAVIGATION -->
+  <!-- NAVIGATION: the mark fills like a sprinkler head as you move down the page -->
   <header class="nav" id="nav">
     <div class="nav-inner">
       <a class="brand" href="#top" aria-label="SLIX home">
-        <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 1.5 A10.5 10.5 0 0 1 12 22.5 Z" fill="currentColor"/></svg>
-        <span>SLIX</span>
+        <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <path id="progress-arc" d="M12 12 L12 1.5 Z" fill="currentColor"/>
+        </svg>
+        <span class="brand-word">SLIX</span>
       </a>
+      <span class="nav-section" id="nav-section" aria-hidden="true"><b>01</b> Opening</span>
       <nav class="nav-links" aria-label="Main">
         <a href="#services">Services</a>
         <a href="#about">About</a>
@@ -32,9 +37,7 @@
         <a href="#contact">Contact</a>
       </nav>
       <a class="btn btn-ink nav-cta" href="#contact">Get a quote</a>
-      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
-        <span class="nav-toggle-label">Menu</span>
-      </button>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
     </div>
   </header>
 
@@ -51,78 +54,81 @@
 
   <main id="main">
 
-    <!-- HERO -->
-    <section class="hero" id="top">
-      <div class="wrap">
-        <dl class="sheet-head">
-          <div><dt>Company</dt><dd>SLIX Irrigation</dd></div>
-          <div><dt>Location</dt><dd>Tawas City, Michigan</dd></div>
-          <div class="sh-coord"><dt>Coordinates</dt><dd>44.27° N, 83.51° W</dd></div>
-          <div class="sh-motto"><dt>Standard</dt><dd>Precision in every drop.</dd></div>
-        </dl>
-        <div class="hero-grid">
-          <h1 class="hero-title">
-            <span class="line"><span>Water,</span></span>
-            <span class="line"><span>perfectly</span></span>
-            <span class="line"><span>delivered.</span></span>
-          </h1>
-          <figure class="hero-plan">
-            <svg id="plan" viewBox="0 0 800 690" role="img" aria-labelledby="plan-title">
-              <title id="plan-title">Illustrative irrigation plan: a house, driveway and lawn with sprinkler heads and their spray arcs</title>
-            </svg>
-            <figcaption class="plan-legend">
-              <span><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7" fill="none" stroke="currentColor"/><path d="M10 3 A7 7 0 0 1 17 10 L10 10Z" fill="currentColor"/></svg>Quarter</span>
-              <span><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7" fill="none" stroke="currentColor"/><path d="M10 3 A7 7 0 0 1 10 17Z" fill="currentColor"/></svg>Half</span>
-              <span><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7" fill="currentColor"/></svg>Full</span>
-              <span class="legend-note">Illustrative plan</span>
-            </figcaption>
-          </figure>
-          <div class="hero-foot">
-            <p class="hero-sub">Smarter irrigation. Healthier landscapes. A better way to water.</p>
-            <div class="hero-actions">
-              <a class="btn btn-ink" href="#services">Explore our services</a>
-              <a class="btn btn-line" href="#contact">Get in touch</a>
-            </div>
+    <!-- 01 OPENING: a dry lawn, then one rotor pass waters it -->
+    <section class="hero" id="top" data-label="Opening">
+      <div class="stage" id="stage">
+        <div class="layer layer-dry" aria-hidden="true">
+          <svg class="arcs" viewBox="0 0 1000 1000" preserveAspectRatio="xMinYMax slice"><circle cx="0" cy="1000" r="560"/><circle cx="0" cy="1000" r="900"/></svg>
+          <div class="comp">
+            <p class="h-line l1">Water,</p>
+            <p class="h-line l2">perfectly</p>
+            <p class="h-line l3">delivered.</p>
           </div>
+          <p class="stage-note">Before</p>
         </div>
+        <div class="layer layer-wet" id="layer-wet">
+          <svg class="arcs" viewBox="0 0 1000 1000" preserveAspectRatio="xMinYMax slice" aria-hidden="true"><circle cx="0" cy="1000" r="560"/><circle cx="0" cy="1000" r="900"/></svg>
+          <h1 class="comp">
+            <span class="h-line l1">Water,</span>
+            <span class="h-line l2">perfectly</span>
+            <span class="h-line l3">delivered.</span>
+          </h1>
+          <p class="stage-note">After one pass</p>
+        </div>
+        <div class="rotor" id="rotor" aria-hidden="true"><span></span></div>
+        <svg class="rotor-head" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#eef0ec" stroke="#1d4ed8" stroke-width="2"/><path d="M12 12 L12 2 A10 10 0 0 1 22 12 Z" fill="#1d4ed8"/></svg>
+      </div>
+      <div class="wrap hero-meta">
+        <p class="hero-sub">Smarter irrigation. Healthier landscapes. A better way&nbsp;to&nbsp;water.</p>
+        <div class="hero-actions">
+          <a class="btn btn-ink" href="#services">Explore our services</a>
+          <a class="btn btn-line" href="#contact">Get in touch</a>
+        </div>
+        <dl class="hero-facts">
+          <div><dt>Based in</dt><dd>Tawas City, Michigan</dd></div>
+          <div><dt>Standard</dt><dd>Precision in every drop.</dd></div>
+        </dl>
       </div>
     </section>
 
-    <!-- PHILOSOPHY -->
-    <section class="philosophy" id="about">
+    <!-- 02 PHILOSOPHY: one head, four quarters, four reasons -->
+    <section class="philosophy" id="about" data-label="Philosophy">
       <div class="wrap">
-        <h2 class="statement">Every drop has a&nbsp;purpose.</h2>
+        <h2 class="statement"><span>Every drop</span> <span class="indent">has a purpose.</span></h2>
         <div class="philo-grid">
           <div class="philo-copy">
             <p class="lede">A sprinkler system is only as good as its design and its upkeep. Heads placed with care, zones matched to the ground they water, and a system checked through the seasons.</p>
             <p>That's the difference between a lawn that's patchy and one that's even, edge to edge.</p>
           </div>
-          <dl class="terms">
-            <div><dt>Coverage</dt><dd>Consistent watering across the whole lawn, without dry corners.</dd></div>
-            <div><dt>Efficiency</dt><dd>Water goes to the grass and beds, not the driveway.</dd></div>
-            <div><dt>Reliability</dt><dd>A system that turns on when it should and does its job.</dd></div>
-            <div><dt>The result</dt><dd>Outdoor spaces that look cared for all season.</dd></div>
-          </dl>
+          <div class="quad" role="list" aria-label="What a well-designed system gives you">
+            <div class="q q-nw" role="listitem"><h3>Coverage</h3><p>Consistent watering across the whole lawn, without dry corners.</p></div>
+            <div class="q q-ne" role="listitem"><h3>Efficiency</h3><p>Water goes to the grass and beds, not the driveway.</p></div>
+            <div class="q q-sw" role="listitem"><h3>Reliability</h3><p>A system that turns on when it should and does its job.</p></div>
+            <div class="q q-se" role="listitem"><h3>The result</h3><p>Outdoor spaces that look cared for all season.</p></div>
+            <svg class="quad-ring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="49.5"/></svg>
+            <svg class="quad-head" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#1d4ed8" stroke="#eef0ec" stroke-width="2"/></svg>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- SERVICES -->
-    <section class="services" id="services">
-      <div class="wrap">
-        <div class="services-head">
-          <h2 class="h2">Services</h2>
-          <p>From the first trench to the last blowout.</p>
+    <!-- 03 SERVICES: atmosphere turns to ink; the count is the composition -->
+    <section class="services" id="services" data-label="Services">
+      <div class="services-grid">
+        <div class="svc-count" aria-hidden="true"><span id="svc-count">06</span></div>
+        <div class="svc-body">
+          <h2 class="svc-title">Services</h2>
+          <p class="svc-kicker">From the first trench to the last blowout.</p>
+          <ol class="service-index" id="service-index"><!-- from js/config.js --></ol>
         </div>
-        <ol class="service-index" id="service-index"><!-- filled from js/config.js --></ol>
       </div>
     </section>
 
-    <!-- INTERACTIVE SPRINKLER -->
-    <section class="demo" id="demo">
+    <!-- 04 DEMO: now the visitor holds the rotor -->
+    <section class="demo" id="demo" data-label="Try it">
       <div class="demo-grid">
         <div class="demo-side">
-          <h2 class="h2">Shape the spray.</h2>
+          <h2 class="h2">Your turn.<br><span>Shape the spray.</span></h2>
           <p class="demo-intro">Move the head and change its settings. The arm sweeps the arc, and the plan shades where water lands.</p>
           <div class="control">
             <label for="d-radius">Spray radius</label>
@@ -157,47 +163,57 @@
       </div>
     </section>
 
-    <!-- BUILT FOR MICHIGAN -->
-    <section class="michigan" id="michigan">
-      <div class="wrap">
-        <h2 class="mi-title">Rooted in Tawas City.<br><span>Ready for Michigan.</span></h2>
-        <div class="mi-cols">
+    <!-- 05 MICHIGAN: the arc becomes the year -->
+    <section class="michigan" id="michigan" data-label="Michigan">
+      <div class="wrap mi-grid">
+        <div class="mi-copy">
+          <h2 class="mi-title">Rooted in Tawas&nbsp;City. <span>Ready for Michigan.</span></h2>
           <p>SLIX is based in Tawas City, on the shore of Tawas Bay. Up here, a sprinkler system lives through two very different jobs: keeping lawns green through a short, warm summer, and surviving a winter that freezes the ground solid.</p>
           <p>Water left in the lines when the frost comes can crack pipes, fittings, and heads. That's why seasonal care matters here: a proper startup in spring, and a thorough shutdown before the hard freeze.</p>
         </div>
-        <figure class="year">
-          <figcaption>A typical Northern Michigan irrigation year</figcaption>
-          <div class="year-chart" role="img" aria-label="January through March, ground frozen. April and May, spring startup. June through August, watering season. September and October, fall winterizing. November and December, ground frozen.">
-            <div class="months" aria-hidden="true">
-              <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
-            </div>
-            <div class="bands" aria-hidden="true">
-              <span class="band b-frozen" style="--s:1;--e:4"><span class="band-r">Jan–Mar</span>Frozen</span>
-              <span class="band b-start" style="--s:4;--e:6"><span class="band-r">Apr–May</span>Startup</span>
-              <span class="band b-water" style="--s:6;--e:9"><span class="band-r">Jun–Aug</span>Watering season</span>
-              <span class="band b-winter" style="--s:9;--e:11"><span class="band-r">Sep–Oct</span>Winterize</span>
-              <span class="band b-frozen" style="--s:11;--e:13"><span class="band-r">Nov–Dec</span>Frozen</span>
-            </div>
+        <figure class="dial-fig">
+          <div class="dial-wrap" id="dial-wrap">
+            <svg class="dial" id="dial" viewBox="0 0 440 440" role="img" aria-labelledby="dial-t">
+              <title id="dial-t">A typical Northern Michigan irrigation year: January to March frozen, April and May startup, June to August watering season, September and October winterize, November and December frozen.</title>
+            </svg>
           </div>
-          <p class="fine">Shape of a typical year. Exact timing depends on the weather.</p>
+          <figcaption>
+            <p class="dial-cap">A typical Northern Michigan irrigation year</p>
+            <ul class="dial-key">
+              <li><i class="k-frozen"></i>Frozen <span>Nov–Mar</span></li>
+              <li><i class="k-start"></i>Startup <span>Apr–May</span></li>
+              <li><i class="k-water"></i>Watering season <span>Jun–Aug</span></li>
+              <li><i class="k-winter"></i>Winterize <span>Sep–Oct</span></li>
+            </ul>
+            <p class="fine">Shape of a typical year. Exact timing depends on the weather.</p>
+          </figcaption>
         </figure>
       </div>
     </section>
 
-    <!-- PROCESS -->
-    <section class="process" id="process">
+    <!-- 06 PROCESS: coverage grows, quarter to half to full -->
+    <section class="process" id="process" data-label="Process">
       <div class="wrap">
-        <h2 class="sr-only">Our process</h2>
+        <h2 class="process-title">Our process</h2>
         <ol class="steps">
-          <li><span class="step-word">Connect</span><p>Tell us about your property and what you need.</p></li>
-          <li><span class="step-word">Plan</span><p>Talk through the right irrigation solution for your space.</p></li>
-          <li><span class="step-word">Get started</span><p>Set up the next steps with the SLIX team.</p></li>
+          <li>
+            <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46"/><path d="M50 50 L50 4 A46 46 0 0 1 96 50 Z"/></svg>
+            <span class="step-n">01</span><h3>Connect</h3><p>Tell us about your property and what you need.</p>
+          </li>
+          <li>
+            <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46"/><path d="M50 50 L50 4 A46 46 0 0 1 50 96 Z"/></svg>
+            <span class="step-n">02</span><h3>Plan</h3><p>Talk through the right irrigation solution for your space.</p>
+          </li>
+          <li>
+            <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" class="full"/></svg>
+            <span class="step-n">03</span><h3>Get started</h3><p>Set up the next steps with the SLIX team.</p>
+          </li>
         </ol>
       </div>
     </section>
 
-    <!-- CONTACT -->
-    <section class="contact" id="contact">
+    <!-- 07 CONTACT -->
+    <section class="contact" id="contact" data-label="Contact">
       <div class="contact-grid">
         <div class="contact-side">
           <h2 class="contact-title">Let's make every drop count.</h2>
@@ -254,8 +270,12 @@
       </div>
     </section>
 
-    <!-- FINAL CTA -->
-    <section class="final" id="start">
+    <!-- 08 CLOSE: full circle -->
+    <section class="final" id="start" data-label="Start">
+      <svg class="final-ring" id="final-ring" viewBox="0 0 1000 1000" aria-hidden="true">
+        <circle class="fr-track" cx="500" cy="500" r="470"/>
+        <circle class="fr-arc" cx="500" cy="500" r="470" pathLength="1000" transform="rotate(-90 500 500)"/>
+      </svg>
       <div class="wrap final-inner">
         <h2 class="final-title">Your lawn.<br>Your vision.<br>SLIX.</h2>
         <a class="btn btn-paper" href="#contact">Start your project</a>
@@ -267,8 +287,8 @@
     <div class="wrap footer-grid">
       <div class="f-brand">
         <a class="brand brand-lg" href="#top">
-          <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 1.5 A10.5 10.5 0 0 1 12 22.5 Z" fill="currentColor"/></svg>
-          <span>SLIX</span>
+          <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="currentColor"/></svg>
+          <span class="brand-word">SLIX</span>
         </a>
         <p>Precision in every drop.<br>Tawas City, Michigan</p>
       </div>
@@ -282,9 +302,7 @@
       <div class="f-col" id="footer-services"><h3>Services</h3></div>
       <div class="f-col" id="footer-contact"><h3>Contact</h3><a href="#contact">Send a message</a></div>
     </div>
-    <div class="wrap f-base">
-      <p>© <span id="year"></span> SLIX. All rights reserved.</p>
-    </div>
+    <div class="wrap f-base"><p>© <span id="year"></span> SLIX. All rights reserved.</p></div>
   </footer>
 
   <script src="js/config.js"></script>

@@ -10,7 +10,7 @@ Static site (HTML, CSS, JavaScript, no build step). Hosted on Vercel; every push
 | `js/config.js` | **Business settings: phone, email, form, services list, dropdown options** |
 | `css/styles.css` | Colors, type, layout |
 | `js/demo.js` | The interactive "Shape the spray" sprinkler |
-| `js/main.js` | Hero plan drawing, navigation, services list, contact form |
+| `js/main.js` | Opening sweep, scroll mark, services list, year dial, contact form |
 
 ## What Jimmy still needs to provide
 
@@ -30,9 +30,13 @@ All of these go in `js/config.js`. Blank values are hidden on the site automatic
 
 Spam protection: a hidden honeypot field (`_gotcha`, which Formspree recognizes) plus a minimum time-on-page check. Formspree's own spam filtering can be turned on in its dashboard. Submissions go straight to Formspree over HTTPS; nothing is stored in the visitor's browser.
 
-## Opening
+## Opening and motion
 
-No intro screen. The page opens on the hero, and the headline rises into place once (skipped for visitors with reduced motion turned on). The drawing beside it is an illustrative irrigation plan generated in `js/main.js`, not a real customer's property.
+The site opens on a dry, straw-coloured version of the headline. About half a second in, one rotor arm sweeps from the bottom-left corner and "waters" it into the finished page (1.5 seconds, once per page load). Two more sweeps carry the same idea: the year dial in the Michigan section draws itself the first time it's scrolled into view, and the closing circle completes. Everything else appears without animation. Visitors with reduced motion turned on see the finished page straight away.
+
+The logo mark in the top bar fills like a sprinkler head as you scroll, and the label beside it names the current section.
+
+The dial's "Now" marker uses the visitor's own date.
 
 ## Adding real photos later
 
